@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="span8">
+    <%= twitter_bootstrap_form_for(@section) do |f| %>
+      <%= f.fieldset t('.legend.new_section') do %>
+        <%= render 'form', :f => f %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit t('.button.create'), :class => 'btn btn-primary' %>
+        <%= link_to t('.button.cancel'), articles_url, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>

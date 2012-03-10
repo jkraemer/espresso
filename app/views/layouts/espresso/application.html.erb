@@ -5,10 +5,42 @@
   <%= stylesheet_link_tag    "espresso/application", :media => "all" %>
   <%= javascript_include_tag "espresso/application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<%= yield %>
+  <div class="container">
 
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <%= link_to 'Espresso', root_path, :class => 'brand' %>
+            <ul class="nav">
+              <li class="<%= 'active' if %w(espresso/articles).include? params[:controller] %>">
+                <%= link_to t('.li.articles'), articles_path %>
+              </li>
+              <li class="<%= 'active' if %w(espresso/sections).include? params[:controller] %>">
+                <%= link_to t('.li.sections'), sections_path %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <% if msg = flash[:error] %>
+        <div class="alert alert-error">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= msg %>
+        </div>
+      <% elsif msg = flash[:notice] %>
+        <div class="alert alert-info">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= msg %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
 </body>
 </html>

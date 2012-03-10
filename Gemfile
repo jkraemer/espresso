@@ -8,10 +8,14 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 
+
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
+
+# gem 'twitter_bootstrap_form_for', :git => 'git@github.com:jkraemer/twitter_bootstrap_form_for.git'
+gem 'twitter_bootstrap_form_for', :git => 'https://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

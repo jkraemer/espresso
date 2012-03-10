@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="span4">
+    <p><%= link_to t('.button.new'), new_section_path, :class => 'btn' %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <% if @sections.any? %>
+      <table class="table table-striped">
+        <colgroup>
+          <col width="*" />
+          <col width="15%" />
+          <col width="15%" />
+          <col width="20%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th> <%= t '.th.name' %> </th>
+            <th> <%= t '.th.slug' %> </th>
+            <th> <%= t '.th.updated_at' %> </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for s in @sections %>
+            <tr>
+              <td><%= s.name %></td>
+              <td> <%= s.full_slug %> </td>
+              <td> <%= l s.updated_at, :format => :long %> </td>
+              <td class="buttons">
+                <% unless s.root? %>
+                  <%= link_to t('.button.edit'), edit_section_path(s), :class => 'btn btn-mini' %>
+                  <% if s.empty?  %>
+                    <%= link_to t('.button.delete'), s, :method => :delete,
+                                                        :class => 'btn btn-mini btn-danger' %>
+                  <% else %>
+                    <%= link_to t('.button.delete'), s, :method => :delete,
+                                                        :class => 'btn btn-mini btn-danger',
+                                                        :confirm => t('.confirm.destroy', :count => s.articles.size) %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="well"> <%= t '.p.no_sections' %> </p>
+    <% end %>
+  </div>
+</div>

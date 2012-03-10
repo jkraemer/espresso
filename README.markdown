@@ -1,14 +1,23 @@
+DB setup
+========
 
-Routing
-=======
+rake espresso:install:migrations
+rake db:migrate
 
-The engine installs routes under /blog (public) and /espresso (backend)
-You may want to add a root route for the articles overview:
 
-root :to => 'espresso/articles#index'
+Mounting the engine
+===================
 
-Assets
-======
+mount Espresso::Engine => "/espresso"
 
-in production.rb:
-config.assets.precompile += %w( espresso.css espresso.js )
+
+Authentication
+==============
+
+You have to implement it by yourself.
+
+For simple setups securing the /espresso namespace with http based authenticatoin
+might be enough. For more complex setups where you want to do authentication across multiple
+rack apps you might consider using warden. See http://ryanfunduk.com/shared-auth-for-rack-apps/
+for an example.
+

@@ -1,0 +1,45 @@
+require 'test_helper'
+
+module Espresso
+  class SectionTest < ActiveSupport::TestCase
+
+    test 'should auto-create root section' do
+      root = Section.root
+      assert root
+      assert root.id, "root should be saved!\n#{root.errors.full_messages}"
+      assert_equal('', root.slug)
+      assert_equal('ROOT', root.name)
+      assert_nil root.parent_id
+    end
+
+    test "should set slug upon creation" do
+      assert s = Section.create!( :name => 'Section 1', :parent_id => Section.root.id )
+      assert_equal('section-1', s.slug)
+      assert s2 = Section.create!( :name => 'Sub Section 1 1', :parent_id => s.id )
+      assert_equal('sub-section-1-1', s2.slug)
+    end
+
+    test 'root should be root' do
+      assert Section.root.root?
+      s = Factory(:section)
+      assert !s.root?
+      assert_equal Section.root, s.parent
+    end
+
+    test 'should compute full slug' do
+      assert_equal('/', Section.root.full_slug)
+      s = Factory(:section)
+      assert_equal("/#{s.slug}", s.full_slug)
+      s2 = Factory(:section, :parent => s)
+      assert_equal("/#{s.slug}/#{s2.slug}", s2.full_slug)
+    end
+
+    test 'empty should return correct value' do
+      assert Section.root.empty?
+      a = Factory.build(:article)
+      assert a.save, a.errors.inspect
+      assert !Section.root.empty?
+    end
+
+  end
+end

@@ -1,0 +1,2 @@
+<%= f.select :parent_id, '', @sections.map {|s| [ s.full_slug, s.id ] }, :include_blank => false %>
+<%= f.text_field :name, :class => 'input-xxlarge' %>

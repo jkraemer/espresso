@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="span4">
+    <p><%= link_to t('.button.edit'), edit_article_path(@article), :class => 'btn' %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <div class="page-header">
+      <h1> <%= @article.title %> </h1>
+    </div>
+
+    <%= raw @article.body_html %>
+  </div>
+</div>

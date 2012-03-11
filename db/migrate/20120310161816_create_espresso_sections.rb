@@ -4,6 +4,8 @@ class CreateEspressoSections < ActiveRecord::Migration
       t.string :name
       t.string :slug
       t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
 
       t.timestamps
     end

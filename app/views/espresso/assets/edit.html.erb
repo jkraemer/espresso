@@ -1,0 +1,20 @@
+<%= render 'subnav' %>
+
+<div class="row">
+  <div class="span8">
+    <%= link_to image_tag(@asset.file_url(:large)), @asset.file_url %>
+  </div>
+  <div class="span4">
+    <%= twitter_bootstrap_form_for @asset, :html => {:multipart => true} do |f| %>
+      <%= f.fieldset t('.legend.edit_asset') do %>
+        <%= render 'form', :f => f %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit t('.button.save'), :class => 'btn btn-primary' %>
+        <%= link_to t('.button.cancel'), assets_url, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

@@ -2,21 +2,3 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  espresso:
-    flash:
-      articles:
-        created: Article created.
-        destroyed: Article deleted.
-        published: Article published.
-        updated: Article updated.
-      sections:
-        created: Section created.
-        destroyed: Section deleted.
-        updated: Section updated.
-        not_destroyed: Section could not be deleted.
-    sections:
-      index:
-        confirm:
-          destroy:
-            one: "Really delete this section, including the article it contains?"
-            other: "Really delete this section, including all %{count} articles it contains?"

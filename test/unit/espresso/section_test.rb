@@ -41,5 +41,11 @@ module Espresso
       assert !Section.root.empty?
     end
 
+    test 'should keep tree ordered by slug on each level' do
+      s1 = Factory(:section, :name => 'h')
+      s2 = Factory(:section, :name => 'z')
+      s3 = Factory(:section, :name => 'c')
+      assert_equal([Section.root, s3, s1, s2], Section.ordered.all)
+    end
   end
 end

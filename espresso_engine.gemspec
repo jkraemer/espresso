@@ -22,6 +22,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'rdiscount',                  '~> 1.6.8'
   s.add_dependency 'coderay',                    '~> 1.0.5'
   s.add_dependency 'kaminari',                   '~> 0.13.0'
+  s.add_dependency 'awesome_nested_set'
+  s.add_dependency 'carrierwave'
+  s.add_dependency 'mime-types'
+  s.add_dependency 'mini_magick'
   s.add_dependency 'sass-rails'
   s.add_dependency 'coffee-rails'
 

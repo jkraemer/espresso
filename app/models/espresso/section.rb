@@ -1,7 +1,8 @@
 module Espresso
   class Section < ActiveRecord::Base
-    belongs_to :parent, :class_name => "Espresso::Section", :foreign_key => "parent_id"
-    has_many :children, :class_name => "Espresso::Section", :foreign_key => "parent_id", :dependent => :destroy
+
+    acts_as_nested_set :dependent => :destroy
+
     has_many :articles, :class_name => "Espresso::Article", :foreign_key => "section_id", :dependent => :destroy
 
     attr_accessible :name, :parent_id
@@ -10,12 +11,9 @@ module Espresso
     validates :slug, :format => /[\w-]+/, :allow_blank => true, :uniqueness => { :scope => :parent_id }
 
     before_validation :update_slug
+    after_save :sort_rank
 
-    scope :by_slug, order('slug ASC')
-
-    def hierarchy
-      ([self] + children.by_slug.map{|s| s.hierarchy}).flatten
-    end
+    scope :ordered, order('lft ASC')
 
     def self.root
       s = find_or_create_by_name_and_slug('ROOT', '')
@@ -43,6 +41,22 @@ module Espresso
     end
 
     protected
+
+    # after inserting a new node, move it to the correct position so slugs on this level stay
+    # ordered alphabetically.
+    def sort_rank
+      node = self
+      previous_node = nil
+      while node = node.left_sibling
+        break if node.slug < slug
+        previous_node = node
+      end
+      if node
+        move_to_right_of node
+      elsif previous_node
+        move_to_left_of previous_node
+      end
+    end
 
     def update_slug
       self.slug = name.sluganize if !root?

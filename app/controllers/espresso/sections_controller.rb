@@ -4,6 +4,7 @@ module Espresso
     before_filter :find_sections, :only => %w(index new edit update create)
 
     def index
+      @sections = @sections.page(params[:page])
     end
 
     def edit

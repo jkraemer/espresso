@@ -22,6 +22,9 @@
               <li class="<%= 'active' if %w(espresso/sections).include? params[:controller] %>">
                 <%= link_to t('.li.sections'), sections_path %>
               </li>
+              <li class="<%= 'active' if %w(espresso/assets).include? params[:controller] %>">
+                <%= link_to t('.li.assets'), assets_path %>
+              </li>
             </ul>
           </div>
         </div>

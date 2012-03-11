@@ -33,7 +33,7 @@ module Espresso
 
     test 'should update article' do
       post :update, :id => @article.id, :article => { :title => 'new title' }
-      assert_redirected_to '/espresso/articles'
+      assert_redirected_to articles_path
       @article.reload
       assert_equal('new title', @article.title)
     end
@@ -42,14 +42,14 @@ module Espresso
       assert_difference "Article.count", 1 do
         post :create, :article => { :title => 'title', :body => 'body text' }
       end
-      assert_redirected_to '/espresso/articles'
+      assert_redirected_to articles_path
     end
 
     test 'should destroy article' do
       assert_difference "Article.count", -1 do
         delete :destroy, :id => @article.id
       end
-      assert_redirected_to '/espresso/articles'
+      assert_redirected_to articles_path
     end
 
   end

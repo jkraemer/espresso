@@ -7,6 +7,10 @@ module Espresso
       render 'index'
     end
 
+    def thumbnails
+      @assets = Asset.by_date.page(params[:page])
+    end
+
     def edit
     end
 
@@ -19,12 +23,33 @@ module Espresso
     end
 
     def create
-      @asset = Asset.new params[:asset]
-      if @asset.save
-        redirect_to assets_url(:view => params[:view], :page => params[:page]), :notice => t('espresso.flash.assets.created')
+      if params[:asset]
+        # standard form
+        @asset = Asset.new params[:asset]
+        if @asset.save
+          redirect_to assets_url(:view => params[:view], :page => params[:page]), :notice => t('espresso.flash.assets.created')
+        else
+          logger.error @asset.errors.full_messages
+          index
+        end
+      elsif params[:files]
+        # jquery multi-file-upload
+        json = params[:files].map do |file|
+          Asset.create :file => file
+        end.map do |asset|
+          asset.to_jq_upload request
+        end.to_json
+        respond_to do |format|
+          format.html {
+            # support iframe upload for crappy browsers
+            render :json => json, :content_type => 'text/html', :layout => false
+          }
+          format.json {
+            render :json => json
+          }
+        end
       else
-        logger.error @asset.errors.full_messages
-        index
+        redirect_to assets_url
       end
     end
 

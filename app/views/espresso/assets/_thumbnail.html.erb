@@ -1,0 +1,10 @@
+<li class="span2">
+  <div class="thumbnail">
+    <%= link_to image_tag(thumbnail.file_url(:large_thumb), :alt => thumbnail.title),
+                edit_asset_path(thumbnail),
+                :download => thumbnail.full_file_url(request),
+                :title => thumbnail.title, :class => 'download' %>
+    <h5> <%= thumbnail.title %> </h5>
+    <p> <%= number_to_human_size thumbnail.file_size %> </p>
+  </div>
+</li>

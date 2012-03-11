@@ -1,12 +1,12 @@
 Espresso::Engine.routes.draw do
 
-  resources :assets
+  resources :assets do
+    collection { get :thumbnails }
+  end
   resources :sections, :except => :show
 
   resources :articles do
-    member do
-      put :publish
-    end
+    member { put :publish }
   end
 
   root :to => 'articles#index'

@@ -49,9 +49,12 @@ module Espresso
     #   "something.jpg" if original_filename
     # end
 
-    before :cache, :capture_file_size # callback, example here: http://goo.gl/9VGHI
-    def capture_file_size(new_file)
+    before :cache, :capture_file_size_and_name # callback, example here: http://goo.gl/9VGHI
+    def capture_file_size_and_name(new_file)
       model.file_size = File.size new_file.path
+      Rails.logger.debug 'new_file:'
+      Rails.logger.debug new_file.inspect
+      model.title = new_file.filename if model.title.blank?
     end
 
     protected

@@ -5,4 +5,6 @@ test/dummy/db/*.sqlite3
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/.sass-cache
+test/dummy/public/uploads
 Gemfile.lock
+.DS_Store

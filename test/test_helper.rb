@@ -12,3 +12,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 require 'factory_girl'
 Dir["#{File.dirname(__FILE__)}/factories/**/*.rb"].each { |f| require f }
 
+class ActionController::TestCase
+  include Espresso::Engine.routes.url_helpers
+end

@@ -1,3 +1,7 @@
+# work around problems with sass-rails / sprockets, see https://github.com/rails/sass-rails/issues/81
+require 'sprockets'
+require 'sass/rails'
+
 require "espresso/engine"
 require "espresso/configuration"
 require 'kaminari'

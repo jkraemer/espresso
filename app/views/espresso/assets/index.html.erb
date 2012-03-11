@@ -2,23 +2,142 @@
 
 <div class="row">
   <div class="span8">
-    <% if @assets.any? %>
-      <%= render params[:view] == 'thumbnails' ? 'thumbs' : 'table' %>
-    <% else %>
-      <p class="well"> <%= t '.p.no_assets' %> </p>
-    <% end %>
+    <table class="table table-striped">
+      <colgroup>
+        <col width="15%" />
+        <col width="*" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="20%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th> <%= t '.th.preview' %> </th>
+          <th> <%= t '.th.title' %> </th>
+          <th> <%= t '.th.size' %> </th>
+          <th> <%= t '.th.updated_at' %> </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="files">
+        <%= render @assets %>
+      </tbody>
+    </table>
   </div>
-  <div class="span4">
-    <%= twitter_bootstrap_form_for (@asset||Espresso::Asset.new), :html => {:multipart => true} do |f| %>
-      <%= hidden_field_tag :view, params[:view] %>
-      <%= hidden_field_tag :page, params[:page] %>
-      <%= f.fieldset t('.legend.new_asset') do %>
-        <%= render 'form', :f => f %>
-      <% end %>
-      <div class="form-actions">
-        <%= f.submit t('.button.create'), :class => 'btn btn-primary' %>
-      </div>
-    <% end %>
 
+  <div class="span4">
+    <%= twitter_bootstrap_form_for Espresso::Asset.new, :html => {:multipart => true} do |f| %>
+
+      <div class="fileupload-buttonbar">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+            <i class="icon-plus icon-white"></i>
+            <span>Add files...</span>
+            <input type="file" name="files[]" multiple />
+        </span>
+
+        <button type="reset" class="btn btn-warning cancel">
+            <i class="icon-ban-circle icon-white"></i>
+            <span>Cancel all uploads</span>
+        </button>
+        <p> <%= t '.label.or_just_drag' %> </p>
+
+      </div>
+
+    <% end %>
   </div>
+
 </div>
+
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td class="preview"><span class="fade"></span></td>
+      <td class="name">
+        <span>{%=file.name%}</span>
+      </td>
+      <td class="size">
+        <span>{%=o.formatFileSize(file.size)%}</span>
+      </td>
+      {% if (file.error) { %}
+        <td class="error">
+          <span class="label label-important">{%=locale.fileupload.error%}</span>
+          {%=locale.fileupload.errors[file.error] || file.error%}
+        </td>
+      {% } else if (o.files.valid && !i) { %}
+        <td>
+          <div class="progress progress-success progress-striped active">
+            <div class="bar" style="width:0%;"></div>
+          </div>
+        </td>
+      {% } else { %}
+        <td></td>
+      {% } %}
+      <td class="buttons cancel">
+        {% if (!i) { %}
+          <button class="btn btn-warning btn-mini">
+            <i class="icon-ban-circle icon-white"></i>
+            <span>{%=locale.fileupload.cancel%}</span>
+          </button>
+        {% } %}
+      </td>
+    </tr>
+{% } %}
+</script>
+
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        {% if (file.error) { %}
+          <td></td>
+          <td class="name">{%=file.name%}</td>
+          <td class="size">{%=o.formatFileSize(file.size)%}</td>
+          <td class="error">
+            <span class="label label-important">{%=locale.fileupload.error%}</span>
+            {%=locale.fileupload.errors[file.error] || file.error%}
+          </td>
+        {% } else { %}
+          <td class="preview">
+            {% if (file.thumbnail_url) { %}
+              <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}">
+                <img src="{%=file.thumbnail_url%}" alt="{%=file.name%}" />
+              </a>
+            {% } %}
+          </td>
+          <td class="name">
+            <a href="{%=file.edit_url%}">{%=file.name%}</a>
+          </td>
+          <td class="size"> {%=file.size%} </td>
+          <td> {%=file.updated_at%} </td>
+        {% } %}
+        <td class="buttons">
+          <a href="{%=file.delete_url%}" class="btn btn-danger btn-mini" data-method="delete">
+            <i class="icon-trash icon-white"></i>
+            {%=locale.fileupload.destroy%}
+          </a>
+        </td>
+    </tr>
+{% } %}
+</script>
+
+<%= javascript_tag do %>
+window.locale = {
+    "fileupload": {
+        "errors": {
+            "maxFileSize": "File is too big",
+            "minFileSize": "File is too small",
+            "acceptFileTypes": "Filetype not allowed",
+            "maxNumberOfFiles": "Max number of files exceeded",
+            "uploadedBytes": "Uploaded bytes exceed file size",
+            "emptyResult": "Empty file upload result"
+        },
+        "error": "Error",
+        "start": "Start",
+        "cancel": "Cancel",
+        "destroy": "Delete"
+    }
+};
+<% end %>

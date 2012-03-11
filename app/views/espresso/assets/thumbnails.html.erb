@@ -1,0 +1,13 @@
+<%= render 'subnav' %>
+
+<div class="row">
+  <div class="span12">
+    <% if @assets.any? %>
+      <ul class="thumbnails">
+        <%= render :partial => 'thumbnail', :collection => @assets %>
+      </ul>
+    <% else %>
+      <p class="well"> <%= t '.p.no_assets' %> </p>
+    <% end %>
+  </div>
+</div>

@@ -1,11 +1,11 @@
 <div class="row">
   <div class="span12">
     <ul class="nav nav-tabs">
-      <li class="<%= 'active' if params[:view] != 'thumbnails' %>" >
+      <li class="<%= 'active' if params[:action] == 'index' %>" >
         <%= link_to t('.tabular'), assets_path %>
       </li>
-      <li class="<%= 'active' if params[:view] == 'thumbnails' %>" >
-        <%= link_to t('.thumbnails'), assets_path(:view => 'thumbnails') %>
+      <li class="<%= 'active' if params[:action] == 'thumbnails' %>" >
+        <%= link_to t('.thumbnails'), thumbnails_assets_path %>
       </li>
     </ul>
   </div>

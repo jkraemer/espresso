@@ -12,4 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui
+//= require espresso/jquery-fileupload/load-image
+//= require espresso/jquery-fileupload/tmpl
+//= require espresso/jquery-fileupload/jquery.fileupload
+//= require espresso/jquery-fileupload/jquery.iframe-transport
+// require espresso/jquery-fileupload/jquery.fileupload-ip
+// require espresso/jquery-fileupload/jquery.fileupload-ui
+//= require espresso/jquery-fileupload-ui
+//= require espresso/bootstrap-alert
+//= require espresso/espresso

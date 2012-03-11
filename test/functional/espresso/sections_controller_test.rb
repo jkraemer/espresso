@@ -36,7 +36,7 @@ module Espresso
 
     test 'should update section' do
       put :update, :id => @s.id, :section => {:name => 'new name'}
-      assert_redirected_to '/espresso/sections'
+      assert_redirected_to sections_path
       @s.reload
       assert_equal('new name', @s.name)
       assert_equal('new-name', @s.slug)

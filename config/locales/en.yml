@@ -15,6 +15,11 @@ en:
         created: Asset created.
         destroyed: Asset deleted.
         updated: Asset updated.
+    assets:
+      index:
+        label:
+          or_just_drag: Drag files into the browser window to upload them. Download files by dragging the preview image out of the browser window.
+
     sections:
       index:
         confirm:

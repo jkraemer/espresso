@@ -2,6 +2,7 @@ require 'test_helper'
 
 module Espresso
   class AssetsControllerTest < ActionController::TestCase
+
     setup do
       @asset = Factory(:asset)
     end
@@ -17,7 +18,7 @@ module Espresso
         post :create, :asset => { :title => 'new asset',
                                   :file => fixture_file_upload('../../../files/image.jpg', 'image/jpeg') }
       end
-      assert_redirected_to '/espresso/assets'
+      assert_redirected_to assets_path
       assert a = Asset.find_by_title('new asset')
       assert_equal File.size('test/files/image.jpg'), a.file_size
     end
@@ -30,7 +31,7 @@ module Espresso
 
     test 'should update asset' do
       put :update, :id => @asset.id, :asset => { :title => 'new title' }
-      assert_redirected_to '/espresso/assets'
+      assert_redirected_to assets_path
       @asset.reload
       assert_equal('new title', @asset.title)
     end
@@ -39,7 +40,7 @@ module Espresso
       assert_difference "Asset.count", -1 do
         delete :destroy, :id => @asset.id
       end
-      assert_redirected_to '/espresso/assets'
+      assert_redirected_to assets_path
     end
 
   end

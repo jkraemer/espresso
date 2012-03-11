@@ -1,0 +1,15 @@
+<tr>
+  <td class="preview">
+    <%= link_to image_tag(asset.file_url(:thumb), :alt => asset.title),
+                edit_asset_path(asset),
+                :downlaod => asset.full_file_url(request),
+                :title => asset.title, :class => 'download' %>
+  </td>
+  <td><%= link_to asset.title, edit_asset_path(asset) %></td>
+  <td> <%= number_to_human_size asset.file_size %> </td>
+  <td> <%= l asset.updated_at, :format => :long %> </td>
+  <td class="buttons">
+    <%= link_to '<i class="icon-trash icon-white"></i> '.html_safe + t('.button.delete'),
+                asset, :method => :delete, :class => 'btn btn-mini btn-danger' %>
+  </td>
+</tr>

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
   create_table "espresso_articles", :force => true do |t|
     t.string   "title"
     t.string   "slug"
+    t.string   "path"
     t.text     "body"
     t.text     "body_html"
     t.datetime "published_at"
@@ -23,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "espresso_articles", ["path"], :name => "index_espresso_articles_on_path"
 
   create_table "espresso_assets", :force => true do |t|
     t.string   "file"
@@ -47,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
   create_table "espresso_sections", :force => true do |t|
     t.string   "name"
     t.string   "slug"
+    t.string   "path"
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
@@ -54,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "espresso_sections", ["slug"], :name => "index_espresso_sections_on_slug"
+  add_index "espresso_sections", ["path"], :name => "index_espresso_sections_on_path"
 
   create_table "espresso_taggings", :id => false, :force => true do |t|
     t.integer "tag_id"

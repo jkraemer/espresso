@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
+  <title>Espresso Test Dummy</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+  <header>
+    <h1> <%= link_to 'Espresso Test Dummy', root_path %></h1>
+  </header>
 
+  <%= yield %>
+
+  <footer>
+    <p>
+      <%= link_to 'Imprint', article_path(:path => 'meta/imprint') %>
+    </p>
+
+  </footer>
 </body>
 </html>

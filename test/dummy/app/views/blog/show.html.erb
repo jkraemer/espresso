@@ -1,0 +1,6 @@
+<article>
+  <time datetime="<%= @article.published_at %>" pubdate> <%= l @article.published_at, :format => :long %> </time>
+  <h1> <%= @article.title %> </h1>
+
+  <%= raw @article.body_html %>
+</article>

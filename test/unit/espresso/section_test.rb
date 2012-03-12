@@ -26,12 +26,12 @@ module Espresso
       assert_equal Section.root, s.parent
     end
 
-    test 'should compute full slug' do
-      assert_equal('/', Section.root.full_slug)
+    test 'should compute path' do
+      assert_equal('', Section.root.path)
       s = Factory(:section)
-      assert_equal("/#{s.slug}", s.full_slug)
+      assert_equal("#{s.slug}", s.path)
       s2 = Factory(:section, :parent => s)
-      assert_equal("/#{s.slug}/#{s2.slug}", s2.full_slug)
+      assert_equal("#{s.slug}/#{s2.slug}", s2.path)
     end
 
     test 'empty should return correct value' do

@@ -15,7 +15,8 @@ gem "jquery-rails"
 # your gem to rubygems.org.
 
 # gem 'twitter_bootstrap_form_for', :git => 'git@github.com:jkraemer/twitter_bootstrap_form_for.git'
-gem 'twitter_bootstrap_form_for', :git => 'https://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
+gem 'twitter_bootstrap_form_for', :git => 'https://github.com/stouset/twitter_bootstrap_form_for.git',
+                                  :branch => 'bootstrap-2.0'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

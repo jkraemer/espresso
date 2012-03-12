@@ -1,0 +1,11 @@
+
+<section class="articles">
+
+<% for article in @articles %>
+  <article>
+    <time datetime="<%= article.published_at %>" pubdate> <%= l article.published_at, :format => :long %> </time>
+    <h1><%= link_to article.title, article_path(article.path) %></h1>
+  </article>
+<% end %>
+
+</section>

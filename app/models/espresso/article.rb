@@ -8,19 +8,21 @@ module Espresso
 
     attr_accessor :tag_names, :publish
 
-    attr_accessible :title, :body, :section_id, :tag_names
+    attr_accessible :title, :body, :slug, :section_id, :tag_names, :publish
 
     validates :title, :presence => true
     validates :slug, :presence => true
+    validates :path, :presence => true, :uniqueness => true
     validates :body, :presence => true
     validates :body_html, :presence => true
     validates :section_id, :presence => true
 
     before_validation :update_body_html
-    before_validation :update_slug
     before_validation :set_default_section
+    before_validation :update_slug_and_path
+    before_validation :publish_if_checkbox_checked
 
-    scope :published, where('published_at IS NOT NULL AND published_at <= ?', Time.now)
+    scope :published, lambda{ where('published_at IS NOT NULL AND published_at <= ?', Time.now) }
 
     def publish!
       update_attribute :published_at, Time.now
@@ -30,7 +32,15 @@ module Espresso
       published_at.present? && published_at <= Time.now
     end
 
+    def self.[](path)
+      published.find_by_path(path)
+    end
+
     protected
+
+    def publish_if_checkbox_checked
+      self.published_at = Time.now if ['1', true, 'true'].include?(publish)
+    end
 
     def set_default_section
       self.section = Section.root if section_id.blank? && section.blank?
@@ -46,8 +56,9 @@ module Espresso
       end
     end
 
-    def update_slug
-      self.slug = title.sluganize
+    def update_slug_and_path
+      self.slug = title.sluganize if slug.blank?
+      self.path = "#{section.path}/#{slug}".gsub(/^\//, '')
     end
 
   end

@@ -4,8 +4,8 @@ class NavigationTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test "browse articles" do
-    a1 = Factory(:article)
-    a2 = Factory(:article)
+    a1 = Factory(:article, :title => 'Article 1')
+    a2 = Factory(:article, :title => 'Article 2')
 
     get "espresso/articles"
     assert_response :success

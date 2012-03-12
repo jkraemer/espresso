@@ -1,6 +1,8 @@
 module Espresso
   class ApplicationController < ActionController::Base
 
+    layout 'espresso/application'
+
     protected
 
     def find_sections

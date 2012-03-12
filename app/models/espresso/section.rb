@@ -3,17 +3,24 @@ module Espresso
 
     acts_as_nested_set :dependent => :destroy
 
-    has_many :articles, :class_name => "Espresso::Article", :foreign_key => "section_id", :dependent => :destroy
+    has_many :articles, :class_name => "Espresso::Article",
+                        :foreign_key => "section_id",
+                        :dependent => :destroy
 
     attr_accessible :name, :parent_id
 
     validates :name, :presence => true
-    validates :slug, :format => /[\w-]+/, :allow_blank => true, :uniqueness => { :scope => :parent_id }
+    validates :slug, :format => /[\w-]+/, :allow_blank => true
+    validates :path, :uniqueness => true
 
-    before_validation :update_slug
+    before_validation :update_slug_and_path
     after_save :sort_rank
 
     scope :ordered, order('lft ASC')
+
+    def self.[](path)
+      find_by_path path
+    end
 
     def self.root
       s = find_or_create_by_name_and_slug('ROOT', '')
@@ -28,17 +35,10 @@ module Espresso
       parent_id.nil? && slug.blank? && name == 'ROOT'
     end
 
-    def full_slug
-      if parent
-        [parent.full_slug, slug].join('/').gsub %r{^//}, '/'
-      else
-        '/'
-      end
-    end
-
     def empty?
       articles.blank?
     end
+
 
     protected
 
@@ -58,8 +58,9 @@ module Espresso
       end
     end
 
-    def update_slug
+    def update_slug_and_path
       self.slug = name.sluganize if !root?
+      self.path = "#{parent.path + '/' if parent}#{slug}".gsub(/^\//, '')
     end
 
   end

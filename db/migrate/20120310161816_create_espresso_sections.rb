@@ -3,12 +3,13 @@ class CreateEspressoSections < ActiveRecord::Migration
     create_table :espresso_sections do |t|
       t.string :name
       t.string :slug
+      t.string :path, :length => 1024
       t.integer :parent_id
       t.integer :lft
       t.integer :rgt
 
       t.timestamps
     end
-    add_index :espresso_sections, :slug
+    add_index :espresso_sections, :path
   end
 end

@@ -1,5 +1,5 @@
 module Espresso
-  class ArticlesController < ApplicationController
+  class ArticlesController < Espresso::ApplicationController
     before_filter :find_article, :only => %w(show edit update destroy publish)
     before_filter :find_sections, :only => %w(new edit update create)
 

@@ -19,4 +19,15 @@ class BlogControllerTest < ActionController::TestCase
     assert_equal @article, assigns(:article)
   end
 
+  test 'should create comment' do
+    assert_difference "Espresso::Comment.count", 1 do
+      post :create_comment, :path => @article.path, :comment => { :name => 'Anonymous coward', :body => "I'm a comment." }
+    end
+    assert_redirected_to "/#{@article.path}"
+    @article.reload
+    assert c = @article.comments.first
+    assert_equal('Anonymous coward', c.name)
+    assert_equal("<p>I'm a comment.</p>\n", c.body_html)
+  end
+
 end

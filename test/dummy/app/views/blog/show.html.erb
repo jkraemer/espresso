@@ -3,4 +3,35 @@
   <h1> <%= @article.title %> </h1>
 
   <%= raw @article.body_html %>
+
+  <section class="comments">
+    <% for comment in @article.comments %>
+      <article>
+        <time><%= l comment.created_at, :format => :long %></time>
+        <h1><%= commment.name %></h1>
+        <div> <%= sanitize comment.body_html %> </div>
+      </article>
+    <% end %>
+  </section>
 </article>
+
+
+<%= form_for (@comment || Espresso::Comment.new), :as => :comment,
+             :url => create_article_comment_path(:path => @article.path) do |f| %>
+  <fieldset>
+    <legend>Post a comment</legend>
+    <p>
+      <%= f.label :name %> <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :url %> <%= f.text_field :url %>
+    </p>
+    <p>
+      <%= f.label :body %><br />
+      <%= f.text_area :body, :cols => 50, :rows => 8 %>
+     </p>
+  </fieldset>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -3,6 +3,8 @@
 
 <%= f.text_field :slug, :class => 'input-xxlarge', :placeholder => 'leave empty to auto-generate' %>
 
+<%= f.text_field :tag_names, :class => 'input-xxlarge' %>
+
 <%= f.select :section_id, '', @sections.map {|s| [ '/'+s.path, s.id ] }, :include_blank => false %>
 
 <%= f.text_area :body, :rows => 40, :class => 'input-xxlarge' %>

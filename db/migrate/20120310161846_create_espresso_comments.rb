@@ -4,6 +4,7 @@ class CreateEspressoComments < ActiveRecord::Migration
       t.string :name
       t.string :url
       t.text :body
+      t.text :body_html
       t.integer :article_id
 
       t.timestamps

@@ -13,6 +13,8 @@ class BlogController < ApplicationController
   def create_comment
     if @article
       @comment = @article.comments.build params[:comment]
+      @comment.approved = true
+      @comment.author_ip = request.remote_ip
       if @comment.save
         redirect_to article_path(:path => @article.path), :notice => 'Thank you!'
       else

@@ -9,4 +9,8 @@
 
 <%= f.text_area :body, :rows => 40, :class => 'input-xxlarge' %>
 
-<%= f.check_box :publish %>
+<label for="article_publish" class="checkbox">
+  <%= f.check_box :publish %>
+  <%= t 'activerecord.attributes.espresso/article.publish' %>
+</label>
+

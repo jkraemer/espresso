@@ -5,10 +5,10 @@
   <%= raw @article.body_html %>
 
   <section class="comments">
-    <% for comment in @article.comments %>
+    <% for comment in @article.comments.approved %>
       <article>
         <time><%= l comment.created_at, :format => :long %></time>
-        <h1><%= commment.name %></h1>
+        <h1><%= comment.author_name %></h1>
         <div> <%= sanitize comment.body_html %> </div>
       </article>
     <% end %>
@@ -21,13 +21,16 @@
   <fieldset>
     <legend>Post a comment</legend>
     <p>
-      <%= f.label :name %> <%= f.text_field :name %>
+      <strong><%= f.label :author_name %></strong> <%= f.text_field :author_name %>
     </p>
     <p>
-      <%= f.label :url %> <%= f.text_field :url %>
+      <%= f.label :author_email %> <%= f.text_field :author_email %>
     </p>
     <p>
-      <%= f.label :body %><br />
+      <%= f.label :author_url %> <%= f.text_field :author_url %>
+    </p>
+    <p>
+      <strong><%= f.label :body %></strong><br />
       <%= f.text_area :body, :cols => 50, :rows => 8 %>
      </p>
   </fieldset>

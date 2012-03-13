@@ -27,7 +27,7 @@
           <% for a in @articles %>
             <tr>
               <td><%= link_to a.title, a %></td>
-              <td> <%= a.section.path if a.section %> </td>
+              <td> /<%= a.section.path if a.section %> </td>
               <td> <%= l a.updated_at, :format => :long %> </td>
               <td> <%= l a.published_at, :format => :long if a.published_at %> </td>
               <td class="buttons">

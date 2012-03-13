@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :comment do
-    name "MyString"
-    url "MyString"
+    author_name "MyString"
+    author_url "MyString"
     body "MyText"
     article_id 1
   end

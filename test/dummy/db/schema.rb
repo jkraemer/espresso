@@ -37,13 +37,16 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
   end
 
   create_table "espresso_comments", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
+    t.string   "author_name"
+    t.string   "author_url"
+    t.string   "author_email"
+    t.string   "author_ip"
     t.text     "body"
     t.text     "body_html"
     t.integer  "article_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "approved"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "espresso_comments", ["article_id"], :name => "index_espresso_comments_on_article_id"

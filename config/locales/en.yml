@@ -1,4 +1,9 @@
 en:
+  activerecord:
+    attributes:
+      espresso/article:
+        publish: Publish now
+
   espresso:
     flash:
       articles:

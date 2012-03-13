@@ -5,7 +5,8 @@ module Espresso
   class Article < ActiveRecord::Base
     belongs_to :section, :class_name => "Espresso::Section"
     has_and_belongs_to_many :tags, :class_name => 'Espresso::Tag', :join_table => "espresso_taggings"
-    has_many :comments, :class_name => "Espresso::Comment", :foreign_key => "article_id", :order => 'created_at ASC'
+    has_many :comments, :class_name => "Espresso::Comment", :foreign_key => "article_id",
+                        :order => 'created_at ASC', :dependent => :destroy
 
     attr_accessor :tag_names, :publish
 

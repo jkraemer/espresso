@@ -30,11 +30,11 @@ module Espresso
     end
 
     version :medium, :if => :is_image? do
-      process :resize_to_fit => [200, 200]
+      process :resize_to_fit => [400, 300]
     end
 
     version :large, :if => :is_image? do
-      process :resize_to_fit => [700, 500]
+      process :resize_to_fit => [800, 600]
     end
 
     # Add a white list of extensions which are allowed to be uploaded.

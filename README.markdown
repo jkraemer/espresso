@@ -1,7 +1,7 @@
 DB setup
 ========
 
-rake espresso:install:migrations
+rake espresso_engine:install:migrations
 rake db:migrate
 
 
@@ -21,3 +21,8 @@ might be enough. For more complex setups where you want to do authentication acr
 rack apps you might consider using warden. See http://ryanfunduk.com/shared-auth-for-rack-apps/
 for an example.
 
+TODO
+====
+
+- asset scaling above what is needed for the backend should be configurable
+  from the main application

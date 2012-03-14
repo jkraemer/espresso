@@ -4,7 +4,6 @@ module Espresso
   class AssetUploaderTest < ActiveSupport::TestCase
     setup do
       AssetUploader.enable_processing = true
-      @asset = Asset.new
       @uploader = AssetUploader.new(@asset, :file)
     end
 

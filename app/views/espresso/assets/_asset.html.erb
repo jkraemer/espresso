@@ -1,9 +1,6 @@
 <tr>
   <td class="preview">
-    <%= link_to image_tag(asset.file_url(:thumb), :alt => asset.title),
-                edit_asset_path(asset),
-                :downlaod => asset.full_file_url(request),
-                :title => asset.title, :class => 'download' %>
+    <%= small_thumb asset %>
   </td>
   <td><%= link_to asset.title, edit_asset_path(asset) %></td>
   <td> <%= number_to_human_size asset.file_size %> </td>

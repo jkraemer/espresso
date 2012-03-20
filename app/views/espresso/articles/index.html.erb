@@ -5,8 +5,9 @@
 </div>
 
 <div class="row">
-  <div class="span12">
-    <% if @articles.any? %>
+  <% if @articles.any? %>
+    <div class="span12">
+      <%= paginate @articles, :theme => 'tw_bootstrap' %>
       <table class="table table-striped">
         <colgroup>
           <col width="*" />
@@ -40,8 +41,11 @@
           <% end %>
         </tbody>
       </table>
-    <% else %>
+      <%= paginate @articles, :theme => 'tw_bootstrap' %>
+    </div>
+  <% else %>
+    <div class="span12">
       <p class="well"> <%= t '.p.no_articles' %> </p>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

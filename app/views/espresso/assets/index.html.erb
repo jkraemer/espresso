@@ -2,6 +2,7 @@
 
 <div class="row">
   <div class="span8">
+    <%= paginate @assets, :theme => 'tw_bootstrap' %>
     <table class="table table-striped">
       <colgroup>
         <col width="15%" />
@@ -23,6 +24,7 @@
         <%= render @assets %>
       </tbody>
     </table>
+    <%= paginate @assets, :theme => 'tw_bootstrap' %>
   </div>
 
   <div class="span4">

@@ -101,3 +101,15 @@ TODO
 - asset scaling above what is needed for the backend should be configurable
   from the main application
 
+
+CREDITS
+=======
+
+- Espresso has been created by Jens Krämer, jk@jkraemer.net
+- The views have been created using Twitter Bootstrap
+  (http://twitter.github.com/bootstrap/)
+- Neat file uploading stuff powered by jQuery File Upload Plugin
+  (https://github.com/blueimp/jQuery-File-Upload)
+- The twitter bootstrap kaminari pagination partials are from
+  https://github.com/gabetax/twitter-bootstrap-kaminari-views
+

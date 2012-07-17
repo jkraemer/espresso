@@ -7,7 +7,7 @@ module Espresso
                         :foreign_key => "section_id",
                         :dependent => :destroy
 
-    attr_accessible :name, :parent_id
+    attr_accessible :name, :parent_id, :show_pub_date
 
     validates :name, :presence => true
     validates :slug, :format => /[\w-]+/, :allow_blank => true

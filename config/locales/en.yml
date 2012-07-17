@@ -2,7 +2,11 @@ en:
   activerecord:
     attributes:
       espresso/article:
+        tag_names: Tags (separate multiple tags by comma)
         publish: Publish now
+        published: Published at %{date}
+      espresso/section:
+        show_pub_date: Show publish date of articles
 
   espresso:
     flash:

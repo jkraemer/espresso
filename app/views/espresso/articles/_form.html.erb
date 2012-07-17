@@ -10,7 +10,11 @@
 <%= f.text_area :body, :rows => 40, :class => 'input-xxlarge' %>
 
 <label for="article_publish" class="checkbox">
-  <%= f.check_box :publish %>
-  <%= t 'activerecord.attributes.espresso/article.publish' %>
+  <%= f.check_box :publish, :checked => f.object.published? %>
+  <% if f.object.published? && f.object.persisted? %>
+    <%= t 'activerecord.attributes.espresso/article.published', :date => I18n.l(f.object.published_at) %>
+  <% else %>
+    <%= t 'activerecord.attributes.espresso/article.publish' %>
+  <% end %>
 </label>
 

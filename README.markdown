@@ -56,8 +56,16 @@ put
 
 into your routes.rb
 
-Pagination
-----------
+Using Espresso's content in your application
+--------------------------------------------
+
+The test application located in test/dummy in Espresso's sources
+implements a basic blog frontend on top of Espresso. There's only one
+controller and some views involved, so be sure to take a look at it to
+get an idea of how to make best use of what Espresso offers.
+
+Backend: Pagination
+-------------------
 
 Espresso uses the kaminari gem for pagination. To customize pagination,
 run 
@@ -67,13 +75,18 @@ run
 and edit the generated file in config/initializers/. Refer to Kaminari's
 documentation at https://github.com/amatsuda/kaminari for more info.
 
-Using Espresso's content in your application
---------------------------------------------
+Backend: Icons for non-Image assets
+-----------------------------------
 
-The test application located in test/dummy in Espresso's sources
-implements a basic blog frontend on top of Espresso. There's only one
-controller and some views involved, so be sure to take a look at it to
-get an idea of how to make best use of what Espresso offers.
+The icons for assets that are no images are retrieved from stdicon.com,
+which unfortunately is http-only. In order to prevent security warnings
+when accessing your backend via https, the icons are proxied and
+page-cached by Espresso's icons_controller. In order to take advantage
+of the page-caching you have to tell your web server to serve up \*.png
+files when a file without extension is requested:
+
+    request: /icons/text/html/120
+    file served: Rails.root/public/icons/text/html/120.png
 
 
 Authentication
@@ -105,11 +118,10 @@ TODO
 CREDITS
 =======
 
-- Espresso has been created by Jens Krämer, jk@jkraemer.net
 - The views have been created using Twitter Bootstrap
-  (http://twitter.github.com/bootstrap/)
 - Neat file uploading stuff powered by jQuery File Upload Plugin
   (https://github.com/blueimp/jQuery-File-Upload)
 - The twitter bootstrap kaminari pagination partials are from
   https://github.com/gabetax/twitter-bootstrap-kaminari-views
+- thanks to stdicon.com for providing pretty file type icons in any size
 

@@ -7,6 +7,7 @@ class CreateEspressoSections < ActiveRecord::Migration
       t.integer :parent_id
       t.integer :lft
       t.integer :rgt
+      t.boolean :show_pub_date, :default => true
 
       t.timestamps
     end

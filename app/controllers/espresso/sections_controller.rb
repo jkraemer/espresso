@@ -12,7 +12,7 @@ module Espresso
 
     def update
       if @section.update_attributes(params[:section])
-        redirect_to sections_path, :notice => t('espresso.flash.section.updated')
+        redirect_to sections_path, :notice => t('espresso.flash.sections.updated')
       else
         render 'edit'
       end

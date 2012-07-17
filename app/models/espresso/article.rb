@@ -13,7 +13,7 @@ module Espresso
     attr_accessible :title, :body, :slug, :section_id, :tag_names, :publish
 
     validates :title, :presence => true
-    validates :slug, :presence => true
+    validates :slug, :presence => true, :unless => 'title.blank?'
     validates :path, :presence => true, :uniqueness => true
     validates :body, :presence => true
     validates :body_html, :presence => true
@@ -26,6 +26,12 @@ module Espresso
     after_save :update_taggings
 
     scope :published, lambda{ where('published_at IS NOT NULL AND published_at <= ?', Time.now) }
+    scope :for_year, lambda { |year|
+      beg_of_year = Time.parse("#{year}-01-01")
+      where('published_at between ? AND ?', beg_of_year, beg_of_year.end_of_year)
+    }
+
+    delegate :show_pub_date?, :to => :section
 
     def update_taggings
       if @tag_names

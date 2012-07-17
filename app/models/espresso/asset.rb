@@ -26,5 +26,9 @@ module Espresso
         "updated_at" => I18n.l(updated_at, :format => :long)
       }
     end
+
+    def content_type
+      read_attribute(:content_type) || 'application/octet-stream'
+    end
   end
 end

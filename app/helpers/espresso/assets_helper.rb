@@ -12,7 +12,8 @@ module Espresso
     def thumbnail(asset, size_type, size_px)
       url = asset.file.is_image?(asset) ?
         asset.file_url(size_type) :
-        "http://www.stdicon.com/crystal/#{asset.content_type}?size=#{size_px}"
+        icon_path(:ctype => asset.content_type, :size => size_px)
+ #       "http://www.stdicon.com/crystal/#{asset.content_type}?size=#{size_px}"
       link_to image_tag(url, :alt => asset.title),
               edit_asset_path(asset),
               :download => asset.full_file_url(request),

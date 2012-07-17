@@ -1,3 +1,7 @@
 
 <%= f.select :parent_id, '', @sections.map {|s| [ '/'+s.path, s.id ] }, :include_blank => false %>
 <%= f.text_field :name, :class => 'input-xxlarge' %>
+<label for="section_show_pub_date" class="checkbox">
+  <%= f.check_box :show_pub_date %>
+  <%= t 'activerecord.attributes.espresso/section.show_pub_date' %>
+</label>

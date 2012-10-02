@@ -7,11 +7,11 @@ require "espresso/version"
 Gem::Specification.new do |s|
   s.name        = "espresso_engine"
   s.version     = Espresso::VERSION
-  s.authors     = ["Jens Krämer"]
+  s.authors     = ["Jens Kraemer"]
   s.email       = ["jk@jkraemer.net"]
   s.homepage    = "http://github.com/jkraemer/espresso"
   s.summary     = "Rails 3 KISS blog engine"
-  s.description = "TODO: Description of Espresso."
+  s.description = "Rails 3 KISS blog engine"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

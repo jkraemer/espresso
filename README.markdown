@@ -88,6 +88,18 @@ files when a file without extension is requested:
     request: /icons/text/html/120
     file served: Rails.root/public/icons/text/html/120.png
 
+With nginx in a reverse proxy setup you may use something in the lines
+of:
+
+     location ~ ^/espresso/icons/ {
+         expires max;
+         try_files $uri.png @proxy;
+     }
+
+     location @proxy {
+         proxy_pass http://your-upstream;
+     }
+
 
 Authentication
 ==============

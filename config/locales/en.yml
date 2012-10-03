@@ -24,6 +24,11 @@ en:
         created: Asset created.
         destroyed: Asset deleted.
         updated: Asset updated.
+    articles:
+      index:
+        button:
+          delete: Delete
+          edit: Edit
     assets:
       index:
         label:

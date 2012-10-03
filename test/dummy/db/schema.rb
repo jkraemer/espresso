@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
+    t.boolean  "show_pub_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

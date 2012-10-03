@@ -62,7 +62,7 @@ module Espresso
     protected
 
     def publish_if_checkbox_checked
-      self.published_at = Time.now if ['1', true, 'true'].include?(publish)
+      self.published_at = Time.now if ['1', true, 'true'].include?(publish) && !self.published_at.present?
     end
 
     def set_default_section

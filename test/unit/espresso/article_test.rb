@@ -27,5 +27,20 @@ module Espresso
       assert Espresso::Tag.find_by_name('another tag')
     end
 
+    test "updating a published article should not update the publish date" do
+      s = Factory(:section)
+      a = Factory(:article, :section => s, :title => 'test 1')
+      assert a.save
+      assert a.publish!
+      a = Article.find a.id
+      assert a.published?
+      a.update_attribute :published_at, 5.minutes.ago
+      assert d = a.published_at
+      a.update_attributes :title => 'new title'
+
+      a = Article.find a.id
+      assert_equal(d, a.published_at)
+    end
+
   end
 end

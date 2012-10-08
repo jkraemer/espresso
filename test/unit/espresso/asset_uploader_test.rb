@@ -6,6 +6,7 @@ module Espresso
       @asset = Factory(:asset)
       AssetUploader.enable_processing = true
       @uploader = AssetUploader.new(@asset, :file)
+      @uploader.store!(File.open('test/files/image.jpg'))
     end
 
     teardown do
@@ -14,13 +15,16 @@ module Espresso
     end
 
     test 'should create thumbnail' do
-      @uploader.store!(File.open('test/files/image.jpg'))
       assert_image_dimensions @uploader.thumb, 50, 50
     end
 
     test 'should create medium version' do
-      @uploader.store!(File.open('test/files/image.jpg'))
       assert_bounding_box @uploader.medium, 400, 300
+    end
+
+    test "should store image dimensions" do
+      assert_equal(3000, @asset.width)
+      assert_equal(2000, @asset.height)
     end
   end
 end

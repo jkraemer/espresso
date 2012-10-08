@@ -54,6 +54,10 @@ module Espresso
       model.file_size = File.size new_file.path
       model.title = new_file.filename if model.title.blank?
       model.content_type = new_file.content_type
+      if is_image?(model)
+        model.width, model.height =
+          `identify -format "%wx%h" #{new_file.path}`.split(/x/) 
+      end
     end
 
     def is_image?(asset)

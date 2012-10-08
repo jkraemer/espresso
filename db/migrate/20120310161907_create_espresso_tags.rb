@@ -4,7 +4,7 @@ class CreateEspressoTags < ActiveRecord::Migration
       t.string :name
     end
 
-    create_table :espresso_taggings, :id => false do |t|
+    create_table :espresso_taggings do |t|
       t.integer :tag_id
       t.integer :article_id
     end

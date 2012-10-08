@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311094749) do
+ActiveRecord::Schema.define(:version => 20121008132523) do
 
   create_table "espresso_articles", :force => true do |t|
     t.string   "title"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
     t.integer  "file_size"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "width"
+    t.integer  "height"
   end
 
   create_table "espresso_comments", :force => true do |t|
@@ -58,19 +60,19 @@ ActiveRecord::Schema.define(:version => 20120311094749) do
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
-    t.boolean  "show_pub_date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "show_pub_date", :default => true
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "espresso_sections", ["path"], :name => "index_espresso_sections_on_path"
 
-  create_table "espresso_taggings", :id => false, :force => true do |t|
+  create_table "espresso_taggings", :force => true do |t|
     t.integer "tag_id"
-    t.integer "article_id"
+    t.string  "taggable_type"
+    t.integer "taggable_id"
   end
 
-  add_index "espresso_taggings", ["article_id"], :name => "index_espresso_taggings_on_article_id"
   add_index "espresso_taggings", ["tag_id"], :name => "index_espresso_taggings_on_tag_id"
 
   create_table "espresso_tags", :force => true do |t|

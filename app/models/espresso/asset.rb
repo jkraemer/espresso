@@ -1,7 +1,10 @@
+require 'espresso/concerns/taggable'
+
 module Espresso
   class Asset < ActiveRecord::Base
     include Espresso::Engine.routes.url_helpers
     include ActionView::Helpers::NumberHelper
+    include Concerns::Taggable
 
     attr_accessible :title, :file, :remote_file_url, :file_cache
     mount_uploader :file, AssetUploader

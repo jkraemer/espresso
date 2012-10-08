@@ -64,6 +64,79 @@ implements a basic blog frontend on top of Espresso. There's only one
 controller and some views involved, so be sure to take a look at it to
 get an idea of how to make best use of what Espresso offers.
 
+
+Serving Images at arbitrary resolutions
+---------------------------------------
+
+While thumbnail creation for the backend happens when images are uploaded, you
+most certainly want to serve images to your visitors at other resolutions, maybe
+even supporting retina displays with high resolution images. Luckily,
+Espresso's Asset class includes support for scaling images on the fly to any
+resolution you see fit.
+
+To make use of that, create a controller for serving your images like that:
+
+
+    class PhotosController < ApplicationController
+      caches_page :show # you dont want to scale images on every request...
+
+      def show
+        @asset = Espresso::Asset.find params[:id]
+        raise ActiveRecord::RecordNotFound unless @asset.image?
+
+        width = params[:width].to_i
+        height = params[:height].to_i
+        quality = 85
+
+        # handle retina requests
+        if params[:name] =~ /_2x$/
+          width = width * 2
+          height = height * 2
+          quality = 50 # keep file size reasonable. at high resolutions compression artifacts don't do that much harm.
+        end
+
+        send_data @asset.scale_to(width, (height == 0 ? nil : height), :quality => quality),
+                  :disposition => 'inline',
+                  :type => 'image/jpeg'
+      end
+    end
+
+
+And add a corresponding route:
+
+    match 'photos/:width/:height/:id/:name' => 'photos#show', :as => 'photo', :via => :get
+
+
+Note that the name parameter is only used once - when we check wether it ends
+with `_2x` which will trigger delivery of the asset with twice the dimensions
+given by width and height. So you can put any name you want there - and even
+add the `_2x` prefix automatically via some clever combination of JavaScript,
+Cookies and Rewrite Rules, as described at
+http://www.teamdf.com/web/automatically-serve-retina-artwork/191/ for example.
+Or choose to use another routing scheme and maybe append the retina postfix to
+the id, skipping the :name argument alltogether.
+
+
+A helper method for generating image tags programmatically might also come in handy:
+
+    def photo_tag(asset, width = asset.width, height = nil)
+      height ||= asset.scaled_height_keeping_aspect_ratio(width)
+      image_tag photo_path(:id => asset.id, :width => width, :height => height, :name => asset.filename), :width => width, :height => height, :alt => asset.title
+    end
+
+
+Et voila, a request to
+
+    /photos/300/200/5/foobar_2x.jpg
+
+will in fact devliver a 600x400 image, while
+
+    /photos/300/200/5/foobar.jpg
+
+will deliver the same image, but at a scale of 300x200.
+
+
+
 Backend: Pagination
 -------------------
 

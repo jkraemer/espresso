@@ -52,8 +52,6 @@ module Espresso
     before :cache, :capture_attributes # callback, example here: http://goo.gl/9VGHI
     def capture_attributes(new_file)
       model.file_size = File.size new_file.path
-      Rails.logger.debug 'new_file:'
-      Rails.logger.debug new_file.inspect
       model.title = new_file.filename if model.title.blank?
       model.content_type = new_file.content_type
     end

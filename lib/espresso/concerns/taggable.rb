@@ -11,6 +11,34 @@ module Espresso
         after_save :update_taggings
       end
 
+      module ClassMethods
+
+        # returns a scope matching all taggables tagged with all of the given
+        # tags
+        def tagged_with(*tag_names)
+          tags = tag_names.map{|name| Tag.find_by_name(name)}.compact
+
+          if tags.blank? || tags.size < tag_names.size
+            # no tags or non-existing tag given -> no results
+            return scoped(:conditions => "1 = 0") 
+          end
+
+          # adapted from https://github.com/mbleigh/acts-as-taggable-on
+          joins = tags.map do |tag|
+            join_name = "`tag-#{tag.id}`"
+            <<-SQL
+              JOIN #{Tagging.table_name} #{join_name}
+                ON #{join_name}.taggable_id = `#{table_name}`.#{primary_key}
+                AND #{join_name}.taggable_type = #{quote_value(base_class.name)}
+                AND #{join_name}.tag_id = #{tag.id}
+            SQL
+          end         
+
+          scoped :joins => joins.join(' ')
+        end
+        
+      end
+
       def tag_names
         tags.map(&:name).join(', ')
       end

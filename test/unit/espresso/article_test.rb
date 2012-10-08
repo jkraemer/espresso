@@ -13,6 +13,18 @@ module Espresso
       assert a2.errors[:path]
     end
 
+    test "should find articles tagged with" do
+      assert_difference "Espresso::Tag.count", 3 do
+        a1 = Factory(:article, :tag_names => 'foo, bar')
+        a2 = Factory(:article, :title => 'some other article', :tag_names => 'foo, baz')
+      end
+
+      assert_equal(2, Article.tagged_with('foo').size)
+      assert_equal(1, Article.tagged_with('bar').size)
+      assert_equal(1, Article.tagged_with('foo', 'bar').size)
+      assert_equal(0, Article.tagged_with('baz', 'bar').size)
+    end
+
     test 'should update taggings on save' do
       assert_difference "Tag.count", 2 do
         a = Factory(:article, :tag_names => 'foo, bar')

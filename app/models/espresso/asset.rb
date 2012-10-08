@@ -1,10 +1,12 @@
 require 'espresso/concerns/taggable'
+require 'espresso/concerns/image_scaling'
 
 module Espresso
   class Asset < ActiveRecord::Base
     include Espresso::Engine.routes.url_helpers
     include ActionView::Helpers::NumberHelper
     include Concerns::Taggable
+    include Concerns::ImageScaling
 
     attr_accessible :title, :file, :remote_file_url, :file_cache
     mount_uploader :file, AssetUploader
@@ -30,8 +32,16 @@ module Espresso
       }
     end
 
+    def unscaled_path
+      file.current_path
+    end
+
     def content_type
       read_attribute(:content_type) || 'application/octet-stream'
+    end
+
+    def image?
+      content_type =~ /image/
     end
   end
 end

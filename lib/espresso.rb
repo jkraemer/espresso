@@ -4,6 +4,7 @@ require 'sass/rails'
 
 require "espresso/engine"
 require "espresso/configuration"
+require "espresso/concerns/taggable"
 require 'kaminari'
 require 'twitter_bootstrap_form_for'
 require 'awesome_nested_set'
